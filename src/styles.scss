@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700&subset=cyrillic,cyrillic-ext,latin-ext');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 100%;
+}
+
+.flex-spacer {
+  flex: 1 1 auto;
+}
+.container {
+  display: flex;
+  width: 1170px;
+  margin: 0 auto;
+  align-content: flex-start;
+}
+.full-width {
+  width: 100%;
+}
+.half-width {
+  width: 50%;
+}
+.song-text {
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 16px;
+  white-space: pre;
+}
+.chords {
+  font-weight: bold;
+}
+body {
+  background-color: #eee;
+  font-size: 16px;
+}

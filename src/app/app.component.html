@@ -1,0 +1,31 @@
+<mat-toolbar color="primary" class="toolbar">
+  <div class="container">
+    <span>Chord Editor</span>
+    <div class="flex-spacer"></div>
+    <button mat-icon-button (click)="addSong()" title="Add song">
+      <mat-icon aria-label="Add song">add</mat-icon>
+    </button>
+    <button mat-icon-button (click)="exportSongs()" title="Export all songs">
+      <mat-icon aria-label="Export all songs">file_download</mat-icon>
+    </button>
+    <button mat-icon-button (click)="importSongs()" title="Import songs">
+      <mat-icon aria-label="Import songs">open_in_browser</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<div class="workspace" *ngIf="songList.length">
+  <div class="container">
+    <app-song-item *ngFor="let song of songList" [song]="song"></app-song-item>
+  </div>
+</div>
+
+<div class="empty-placeholder" *ngIf="!songList.length">
+  <mat-icon aria-label="Library is empty">audiotrack</mat-icon>
+  <p>Your amazing music library is still empty.</p>
+  <p>It's time to fix this!</p>
+</div>
+
+<button mat-fab class="add-button" title="Add song" (click)="addSong()">
+  <mat-icon aria-label="Add song">add</mat-icon>
+</button>

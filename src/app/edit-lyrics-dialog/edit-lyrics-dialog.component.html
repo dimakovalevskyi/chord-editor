@@ -1,0 +1,53 @@
+<h2 mat-dialog-title *ngIf="step === 1">Paste the lyrics of your song (may contain chords)</h2>
+<h2 mat-dialog-title *ngIf="step === 2">Select lines with chords</h2>
+<h2 mat-dialog-title *ngIf="step === 3">Place chords</h2>
+
+<mat-toolbar *ngIf="step === 3">
+  <span>Selected chord: {{ selectedChord.name || ' ' }}</span>
+  <div class="flex-spacer"></div>
+  <button mat-icon-button (click)="removeSelectedChord()" title="Remove selected chord" color="warn" [disabled]="!selectedChord.name">
+    <mat-icon aria-label="Remove selected chord">delete</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-form-field class="full-width" *ngIf="step === 3">
+  <input class="song-text" matInput placeholder="New chord name" [(ngModel)]="newChordName" matTooltip="Just click where you want to paste this chord">
+</mat-form-field>
+<mat-dialog-content (mouseup)="dragEndEvent($event)" [ngClass]="{'drag-state': dragging}">
+
+  <mat-form-field class="full-width" *ngIf="step === 1">
+    <textarea class="song-text" matInput placeholder="Lyrics" [(ngModel)]="stringLyrics"></textarea>
+  </mat-form-field>
+
+  <div *ngIf="step === 2">
+    <div *ngFor="let row of analyzingLyrics">
+        <mat-checkbox class="song-text" [(ngModel)]="row.isChords">{{row.text}}</mat-checkbox>
+    </div>
+  </div>
+
+  <div *ngIf="step === 3">
+
+    <span class="drag-helper song-text" *ngIf="dragging" [ngStyle]="{'top.px': dragHelperStyle.top, 'left.px': dragHelperStyle.left }">{{ selectedChord.name }}</span>
+
+    <div class="song-text chords-editing">
+      <p class="row" *ngFor="let row of transformedLyrics; let i = index">
+        <span class="chords" (mousedown)="insertChordEvent($event, row)" [attr.data-index]="i">
+          <span class="chord-wrapper" *ngFor="let chord of row.chords">
+            <span *ngIf="selectedChord == chord" class="selected-helper" (mousedown)="dragStartEvent($event, chord, row)"></span>
+            <span class="chord-space">{{ getSpaces(chord.offset) }}</span>
+            <span class="chord-name" [ngClass]="{'chord-selected': selectedChord == chord}" (mousedown)="selectChordEvent($event, chord, row)">{{ chord.name }}</span>
+          </span>
+          <span class="chords-fill">{{ getEmptySpace(row) }}</span>
+        </span>
+        <br>
+        <span>{{ row.text || ' ' }}</span>
+      </p>
+    </div>
+
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button color="warn" mat-dialog-close>Exit</button>
+  <button mat-raised-button *ngIf="step === 1 || step === 2" color="primary" (click)="next()">Next</button>
+  <button mat-raised-button *ngIf="step === 3" color="primary" [mat-dialog-close]="transformedLyrics">Save</button>
+</mat-dialog-actions>

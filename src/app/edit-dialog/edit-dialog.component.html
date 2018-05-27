@@ -1,0 +1,33 @@
+<h2 mat-dialog-title *ngIf="addingMode">Add song to your library</h2>
+<h2 mat-dialog-title *ngIf="!addingMode">Edit song</h2>
+<mat-dialog-content>
+
+  <mat-form-field class="half-width">
+    <input matInput placeholder="Name" [(ngModel)]="song.name">
+  </mat-form-field>
+  <mat-form-field class="half-width">
+    <input matInput placeholder="Author" [(ngModel)]="song.author">
+  </mat-form-field>
+
+  <h3 class="mat-h3">Lyrics</h3>
+
+  <div class="song-text">
+    <p *ngFor="let row of song.lyrics">
+        <span class="chords" *ngIf="row.chords.length">
+            {{ chordsToString(row.chords) }}
+        </span>
+        <span>
+            {{ row.text }}
+        </span>
+    </p>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button color="warn" mat-dialog-close>Exit</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="song">Save</button>
+  <div class="flex-spacer"></div>
+  <button mat-icon-button title="Edit lyrics"color="primary">
+    <mat-icon aria-label="Edit lyrics" (click)="editLyrics()">edit</mat-icon>
+  </button>
+</mat-dialog-actions>

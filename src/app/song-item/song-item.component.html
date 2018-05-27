@@ -1,0 +1,22 @@
+<mat-card class="song-card" (click)="open()">
+  <mat-card-header>
+    <mat-card-title>{{ song.name || 'Song without name'}}</mat-card-title>
+    <mat-card-subtitle>{{ song.author || 'Anonymous author' }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      Words count: {{ calculateWordsCount() }}
+    </p>
+    <p>
+      Chords used: {{ getUsedChords() }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-icon-button>
+      <mat-icon aria-label="Remove song" (click)="removeEvent($event)" color="warn">delete</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon aria-label="Export song" (click)="exportEvent($event)" color="primary">file_download</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

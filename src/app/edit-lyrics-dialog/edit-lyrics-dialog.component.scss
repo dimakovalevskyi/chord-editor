@@ -1,0 +1,60 @@
+textarea {
+  max-height: 60vh;
+  height: 60vh;
+}
+
+.song-text {
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 18px;
+  white-space: pre;
+  user-select: none;
+}
+.chords-editing {
+  line-height: 1.5;
+  .chords {
+    outline: 2px solid #eee;
+    padding: 2px;
+    cursor: crosshair;
+  }
+}
+
+.row {
+  padding-top: 15px;
+}
+
+.chord-name {
+  outline: 2px solid #ccc;
+  cursor: pointer;
+}
+
+.chord-selected {
+  outline-color: #666;
+}
+
+.chord-wrapper {
+  position: relative;
+}
+
+.drag-helper {
+  position: absolute;
+  outline: 2px solid #666;
+  transform: translateY(-50%);
+}
+
+.selected-helper {
+  position: absolute;
+  display: block;
+  width: 15px;
+  height: 15px;
+  background-color: #333;
+  border: 1px solid #ccc;
+  left: 100%;
+  bottom: 100%;
+  cursor: move;
+}
+
+.drag-state {
+  .selected-helper {
+    display: none;
+  }
+}
